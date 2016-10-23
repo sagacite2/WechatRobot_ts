@@ -1,0 +1,25 @@
+{
+  "name": "wechatrobot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/cheerio": "^0.17.31",
+    "@types/mongoose": "^4.5.38",
+    "@types/request": "0.0.32",
+    "@types/superagent": "^2.0.35",
+    "cheerio": "^0.22.0",
+    "generic-pool": "^2.4.3",
+    "iconv-lite": "^0.4.13",
+    "jschardet": "^1.4.1",
+    "mongoose": "^4.6.1",
+    "request": "^2.75.0",
+    "superagent": "^2.3.0",
+    "typescript": "^2.0.3"
+  }
+}
