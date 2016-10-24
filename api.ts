@@ -5,6 +5,11 @@ import * as helper from './modules/helper';
 const Gzh = models.Gzh;
 const Article = models.Article;
 const debug = true;
+function log(s: string) {
+    if (debug) {
+        console.log(s);
+    }
+}
 console.log('干活！');
 const retries = 3;
 let current_retry = 3;
@@ -48,10 +53,9 @@ async function updateGzh_item(weixin_id: string) {
 
         gzh.save((err, product, numAffected) => {
             if (!err && numAffected > 0) {
-                console.log(numAffected, product._id);
                 console.log('添加了公众号: 【' + weixin_id + '】, 中文名:【' + gzh.gzh_name + '】, 简介：' + gzh.introduce);
             } else {
-                throw err;
+                console.log(err);
             }
         });
     } else {
@@ -196,20 +200,17 @@ async function remote_get(url: string) {
     //每次请求都先稍等一下
     await helper.wait_seconds(2);
     const promise = new Promise<superagent.Response>(function (resolve, reject) {
-        if (debug) {
-            console.log('get:' + url);
-        }
+        log('get:' + url);
+
         superagent.get(url)
             .end(async function (err, res) {
-                if (debug) {
-                    console.log('got:' + url);
-                }
+
+                log('got:' + url);
                 if (!err) {
                     retrying = false;
                     current_retry = retries;
-                    if (debug) {
-                        console.log('bytes:' + res.text.length);
-                    }
+                    log('bytes:' + res.text.length);
+
                     resolve(res);
                 } else {
                     console.log(err);
@@ -218,6 +219,7 @@ async function remote_get(url: string) {
                         current_retry = retries;
                         reject(err);
                     } else {
+                        log('retry...(' + current_retry + ')')
                         retrying = true;
                         current_retry--;
                         resolve(await remote_get(url));
