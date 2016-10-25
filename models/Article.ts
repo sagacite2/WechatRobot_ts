@@ -30,4 +30,3 @@ const ArticleSchema = new mongoose.Schema({
 ArticleSchema.index({ chuansong_id: 1 });
 
 export const Article = mongoose.model<IArticle>("Article", ArticleSchema);
-
